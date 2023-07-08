@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class OnHit : MonoBehaviour {
     private Animator anim;
+    private GameObject scoreSound;
     public bool dying = false;
 
 
     void Start() {
         anim = transform.GetChild(0).GetComponent<Animator>();
+        scoreSound = GameObject.Find("ScoreSound");
     }
 
     // Update is called once per frame
@@ -24,6 +26,9 @@ public class OnHit : MonoBehaviour {
             PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 1);
             PlayerPrefs.Save();
             int randomNumber = Random.Range(0, 3);
+            GetComponent<AudioSource>().Play();
+            //Play Score Sound
+            scoreSound.GetComponent<AudioSource>().Play();
             if (randomNumber == 0) {
                 anim.Play("KO_04");
             } else if (randomNumber == 1) {
