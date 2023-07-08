@@ -39,8 +39,8 @@ ModelImporter:
       name: Idle_Mole
       takeName: Idle_Mole
       internalID: 3618142269107147330
-      firstFrame: 592
-      lastFrame: 612
+      firstFrame: 34
+      lastFrame: 570
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

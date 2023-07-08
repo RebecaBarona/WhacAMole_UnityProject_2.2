@@ -36,8 +36,8 @@ ModelImporter:
       name: KO_04
       takeName: KO_04
       internalID: 3087765933327030883
-      firstFrame: 0
-      lastFrame: 145
+      firstFrame: 30
+      lastFrame: 142
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
