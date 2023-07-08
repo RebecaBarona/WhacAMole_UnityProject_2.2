@@ -5,23 +5,28 @@ using UnityEngine;
 public class OnHit : MonoBehaviour
 {
     private Animator anim;
+    public bool dying = false;
 
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = transform.GetChild(0).GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle_Mole") && dying)
+        {
+            dying = false;
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Destroyer"))
+        if (other.gameObject.CompareTag("Interactable") && !dying)
         {
+            dying = true;
             int randomNumber = Random.Range(0, 3);
             if (randomNumber == 0)
             {
