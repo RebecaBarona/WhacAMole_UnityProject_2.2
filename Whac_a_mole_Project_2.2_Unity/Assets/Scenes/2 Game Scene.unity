@@ -2067,7 +2067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33444dc597816254595190d983c4ca33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 0.003
+  interval: 0.01
 --- !u!1001 &436224385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3700,6 +3700,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Center.z
       value: 0.65707684
+      objectReference: {fileID: 0}
+    - target: {fileID: 8774903705451841203, guid: ae8a45b9d38012f4089dd386600cd6ee,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -8760,6 +8765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffd72773d85b26b448bb87e28b0078b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dying: 0
 --- !u!65 &1647187347
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8775,7 +8781,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
