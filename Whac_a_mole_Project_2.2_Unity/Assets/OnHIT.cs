@@ -5,11 +5,12 @@ using UnityEngine;
 public class OnHit : MonoBehaviour {
     private Animator anim;
     private GameObject scoreSound;
-    public bool dying = false;
+    public GameObject mole;
+    private bool dying = false;
 
 
     void Start() {
-        anim = transform.GetChild(0).GetComponent<Animator>();
+        anim = mole.GetComponent<Animator>();
         scoreSound = GameObject.Find("ScoreSound");
     }
 
@@ -26,7 +27,7 @@ public class OnHit : MonoBehaviour {
             PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 1);
             PlayerPrefs.Save();
             int randomNumber = Random.Range(0, 3);
-            GetComponent<AudioSource>().Play();
+            mole.GetComponent<AudioSource>().Play();
             //Play Score Sound
             scoreSound.GetComponent<AudioSource>().Play();
             if (randomNumber == 0) {

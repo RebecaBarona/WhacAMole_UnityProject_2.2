@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class MoveUpAndDown : MonoBehaviour {
 
-    private BoxCollider parentBoxCollider;
+    public GameObject hitManager;
+    public GameObject mole;
+    private BoxCollider hitBoxCollider;
     private Animator anim;
     // Probability between 0 and 1
     public float jumpProbability = 0.01f;
@@ -14,8 +16,8 @@ public class MoveUpAndDown : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        anim = GetComponent<Animator>();
-        parentBoxCollider = transform.parent.GetComponent<BoxCollider>();
+        anim = mole.GetComponent<Animator>();
+        hitBoxCollider = hitManager.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -24,7 +26,7 @@ public class MoveUpAndDown : MonoBehaviour {
         if (randomNumber < jumpProbability && !jumping) {
             jumping = true;
             jumpStartTimestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            GetComponent<AudioSource>().Play();
+            mole.GetComponent<AudioSource>().Play();
             randomNumber = UnityEngine.Random.Range(0, 3);
             if (randomNumber == 0) {
                 anim.Play("Jump_01");
@@ -35,7 +37,7 @@ public class MoveUpAndDown : MonoBehaviour {
             }
         } else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle_Mole") && jumping) {
             jumping = false;
-            parentBoxCollider.enabled = false;
+            hitBoxCollider.enabled = false;
         }
 
         if (jumping)
@@ -49,11 +51,13 @@ public class MoveUpAndDown : MonoBehaviour {
             double lower = animationTimeHalf - interval;
             if (now >= lower && now <= upper)
             {
-                parentBoxCollider.enabled = true;
+                hitBoxCollider.enabled = true;
 
-            } else if(parentBoxCollider.enabled)
+            }
+            else if(hitBoxCollider.enabled)
             {
-                parentBoxCollider.enabled = false;
+                hitBoxCollider.enabled = false;
+
 
             }
         }
