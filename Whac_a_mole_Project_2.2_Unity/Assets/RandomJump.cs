@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class MoveUpAndDown : MonoBehaviour {
 
     private BoxCollider parentBoxCollider;
     private Animator anim;
-    public float interval = 0.01f;
+    // Probability between 0 and 1
+    public float jumpProbability = 0.01f;
+    // Interval between 0 and 1
+    public float hitBoxInterval = 0.2f;
+    private long jumpStartTimestamp;
     private bool jumping = false;
 
     // Start is called before the first frame update
@@ -17,12 +20,12 @@ public class MoveUpAndDown : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        float randomNumber = Random.Range(0f, 1f);
-        if (randomNumber < interval && !jumping) {
+        float randomNumber = UnityEngine.Random.Range(0f, 1f);
+        if (randomNumber < jumpProbability && !jumping) {
             jumping = true;
+            jumpStartTimestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             GetComponent<AudioSource>().Play();
-            parentBoxCollider.enabled = true;
-            randomNumber = Random.Range(0, 3);
+            randomNumber = UnityEngine.Random.Range(0, 3);
             if (randomNumber == 0) {
                 anim.Play("Jump_01");
             } else if (randomNumber == 1) {
@@ -33,6 +36,27 @@ public class MoveUpAndDown : MonoBehaviour {
         } else if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle_Mole") && jumping) {
             jumping = false;
             parentBoxCollider.enabled = false;
+        }
+
+        if (jumping)
+        {
+            long now = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            double animationLength = anim.GetCurrentAnimatorStateInfo(0).length / anim.GetCurrentAnimatorStateInfo(0).speedMultiplier * 1000f;
+            double animationLengthHalf = animationLength / 2.0f;
+            double interval = animationLengthHalf * hitBoxInterval;
+            double animationTimeHalf = jumpStartTimestamp + animationLengthHalf;
+            double upper = animationTimeHalf +  interval;
+            double lower = animationTimeHalf - interval;
+            Debug.Log(lower + ", " + now + ", " + upper);
+            if (now >= lower && now <= upper)
+            {
+                parentBoxCollider.enabled = true;
+
+            } else if(parentBoxCollider.enabled)
+            {
+                parentBoxCollider.enabled = false;
+
+            }
         }
     }
 }

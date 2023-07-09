@@ -188,7 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33444dc597816254595190d983c4ca33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 0.01
+  jumpProbability: 0.01
+  hitBoxInterval: 0.3
 --- !u!82 &1291242625700202942
 AudioSource:
   m_ObjectHideFlags: 0
