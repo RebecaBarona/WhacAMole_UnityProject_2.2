@@ -47,7 +47,6 @@ public class MoveUpAndDown : MonoBehaviour {
             double animationTimeHalf = jumpStartTimestamp + animationLengthHalf;
             double upper = animationTimeHalf +  interval;
             double lower = animationTimeHalf - interval;
-            Debug.Log(lower + ", " + now + ", " + upper);
             if (now >= lower && now <= upper)
             {
                 parentBoxCollider.enabled = true;
